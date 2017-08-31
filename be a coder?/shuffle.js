@@ -7,12 +7,13 @@
 
 // 随机选择数组中的一个数放入新数组中，时间复杂度: O(n^2)
 function shuffle(arr) {
+  var cpArr = arr.slice();
   var newArr = [];
   var random;
-  while(arr.length > 0) {
-    random = Math.floor(Math.random() * arr.length);
-    newArr.push(arr[random]);
-    arr.splice(random, 1);
+  while(cpArr.length > 0) {
+    random = Math.floor(Math.random() * cpArr.length);
+    newArr.push(cpArr[random]);
+    cpArr.splice(random, 1);
   }
   return newArr;
 }
@@ -30,3 +31,7 @@ function shuffle(arr) {
   }
   return arr;
 }
+
+var arr = [1, 2, 3, 4, '5', '6', '7'];
+
+shuffle(arr);

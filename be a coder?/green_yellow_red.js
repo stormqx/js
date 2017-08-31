@@ -20,7 +20,7 @@
 
 var promise = Promise.resolve();
 
-function this.next(cb) {
+function next(cb) {
   promise = promise.then(function () {
     return new Promise(function (resolve) {
       cb(resolve);
