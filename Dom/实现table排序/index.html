@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table id="jsList">
+        <thead>
+            <th id="name">name</th>
+            <th id="price">price</th>
+            <th id="sales">sales</th>
+        </thead>
+        <tbody id="jslist-body">
+            <tr>
+                <td>apple</td>
+                <td>10</td>
+                <td>100</td>
+            </tr>
+            <tr>
+                <td>orange</td>
+                <td>50</td>
+                <td>10</td>
+            </tr>
+            <tr>
+                <td>banana</td>
+                <td>5</td>
+                <td>60</td>
+            </tr>
+        </tbody>
+    </table>
+<script>
+    var list = document.getElementById('jsList');
+    list.addEventListener('click', (function() {
+      var order = [];
+      return function(e) {
+        var targetID = e.target.id;
+        var idx = getIndexByName(targetID);
+        if(idx !== -1) {
+          order[idx] = toggleOrder(order[idx]);
+          sort(targetID, order[idx]);
+        }
+      }
+    })());
+
+
+    function toggleOrder(order) {
+      if(order === 'asc') {
+        order = 'desc';
+      } else {
+        order = 'asc';
+      }
+      return order;
+    }
+
+    function getIndexByName(name) {
+      return ['name', 'price', 'sales'].indexOf(name);
+    }
+    function sort(type, order) {
+      var el = document.getElementById('jslist-body');
+      var tr = el.getElementsByTagName('tr'); // nodeList
+      var idx = getIndexByName(type);
+
+      var arr = [];
+      Array.prototype.push.apply(arr, tr);
+
+      arr.forEach(function (tr) {
+        el.removeChild(tr);
+      });
+
+      arr = arr.sort(function (r1, r2) {
+        var rel1 = r1.getElementsByTagName('td')[idx].textContent;
+        var rel2 = r2.getElementsByTagName('td')[idx].textContent;
+
+        var result;
+        if(Object.is(+rel1, NaN)) {
+          // 注意 NaN == NaN， NaN === NaN永远返回false。 只有通过Object.is来判断。
+          // Object.is(NaN, NaN)结果为true, Object.is(+0, -0)结果为false.
+          //
+          // 当content为字母时, 如果'a' > 'b'，则返回1。反之，则返回-1。
+          result = rel1 > rel2 ? 1 : -1;
+        } else {
+          // 当content为数字时
+          rel1 = +rel1;
+          rel2 = +rel2;
+          result = rel1 - rel2;
+        }
+
+
+        if (order === 'asc') {
+          return result;
+        } else {
+          return -result;
+        }
+      });
+
+      arr.forEach(function (tr) {
+        el.appendChild(tr);
+      });
+
+    }
+</script>
+</body>
+</html>

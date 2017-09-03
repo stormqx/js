@@ -2,6 +2,12 @@
  * Created on 26/08/2017.
  */
 
+/**
+ * 快排关键点：
+ *  1. partition
+ *  2. 分段sort
+ */
+
 function quickSort(arr, low, high) {
   if(low >= high) return;
 
