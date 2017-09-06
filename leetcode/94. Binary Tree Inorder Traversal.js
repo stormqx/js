@@ -16,6 +16,7 @@ var inorderTraversal = function(root) {
 
 
 // 迭代
+// 实现思路：goAlongLeftBranch
 var inorderTraversal = function(root) {
   if(!root) return [];
   var stack = [];
