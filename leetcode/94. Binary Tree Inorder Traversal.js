@@ -2,7 +2,7 @@
  * Created on 04/09/2017.
  */
 
-// 二叉树先序遍历
+// 二叉树中序遍历
 
 // 递归
 var inorderTraversal = function(root) {
